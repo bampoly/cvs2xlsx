@@ -8,6 +8,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
+import csv
+import glob
+import os
+#import xlsxwriter
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -65,10 +69,14 @@ class Ui_MainWindow(object):
     def openFolder(self):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
         dir = QtGui.QFileDialog.getExistingDirectory()
+        csvFiles = [file for file in  os.listdir(dir) if file.endswith(".csv")]
+     
+        print csvFiles
         if ID_btn == "selectFolder_btn":
 		    self.sourceFolder_lineEdit.setText(dir)
         elif ID_btn ==  "selectFolder_btn2":
             self.destiFolder_lineEditFolder_lineEdit.setText(dir)
-
+		
+		
     def convert(self):
          pass
