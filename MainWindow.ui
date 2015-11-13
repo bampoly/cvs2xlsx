@@ -2,68 +2,70 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QWidget" name="MainWindow">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>150</height>
+    <width>472</width>
+    <height>191</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>cvs to xlsx converter</string>
+   <string>csv2xlsx Converter</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>461</width>
-     <height>80</height>
+     <x>50</x>
+     <y>40</y>
+     <width>371</width>
+     <height>99</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="sourceFolder_lineEdit"/>
+    </item>
     <item row="0" column="0">
-     <widget class="QLabel" name="sourceFolder_Label">
+     <widget class="QLabel" name="source_label">
       <property name="text">
-       <string>Source folder</string>
+       <string>Source</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="destinationFolder_Label">
+     <widget class="QLabel" name="dist_label">
       <property name="text">
-       <string>Destination folder</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="sourceFolder_lineEdit"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="destinationFolder_lineEdit"/>
-    </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="selectFolder_Btn">
-      <property name="text">
-       <string>Open</string>
+       <string>Destination</string>
       </property>
      </widget>
     </item>
     <item row="1" column="2">
-     <widget class="QPushButton" name="Convert_Btn">
+     <widget class="QPushButton" name="convert_btn">
       <property name="text">
        <string>Convert</string>
       </property>
      </widget>
     </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="destFolder_lineEdit"/>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="selectFolder_btn">
+      <property name="text">
+       <string>Open</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="exit_btn">
+      <property name="text">
+       <string>Exit</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <zorder>gridLayoutWidget</zorder>
-  <zorder>selectFolder_Btn</zorder>
  </widget>
  <resources/>
  <connections/>
