@@ -70,7 +70,6 @@ class Ui_MainWindow(object):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
         self.dir = QtGui.QFileDialog.getExistingDirectory()
         self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]
-        print ID_btn
         if ID_btn == "selectFolder_btn":
 		    self.sourceFolder_lineEdit.setText(self.dir)
         elif ID_btn ==  "selectFolder_btn_2": 
@@ -78,7 +77,7 @@ class Ui_MainWindow(object):
 		
 		
     def convert(self):
-         for index, file in enumerate(self.csvFiles):
+        for index, file in enumerate(self.csvFiles):
 			fileName = file[0:file.find(".")]
 			xlsxFile = xlsxwriter.Workbook(fileName + ".xlsx")
 			worksheet = xlsxFile.add_worksheet()
@@ -88,4 +87,6 @@ class Ui_MainWindow(object):
 				 for row,  dataInRow in enumerate(data):
 					for col, dataInCell in enumerate(dataInRow):
 						worksheet.write(row, col, dataInCell)
-         xlsxFile.close()
+        msgBox = QtGui.QMessageBox()  
+        msgBox.setText("The files have been converted.")
+        msgBox.exec_()
