@@ -70,9 +70,10 @@ class Ui_MainWindow(object):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
         self.dir = QtGui.QFileDialog.getExistingDirectory()
         self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]
+        print ID_btn
         if ID_btn == "selectFolder_btn":
 		    self.sourceFolder_lineEdit.setText(self.dir)
-        elif ID_btn ==  "selectFolder_btn2":
+        elif ID_btn ==  "selectFolder_btn_2": 
             self.destFolder_lineEdit.setText(self.dir)
 		
 		
