@@ -11,7 +11,7 @@ from PySide import QtCore, QtGui
 import csv
 import glob
 import os
-#import xlsxwriter
+import xlsxwriter
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -68,15 +68,23 @@ class Ui_MainWindow(object):
 
     def openFolder(self):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
-        dir = QtGui.QFileDialog.getExistingDirectory()
-        csvFiles = [file for file in  os.listdir(dir) if file.endswith(".csv")]
-     
-        print csvFiles
+        self.dir = QtGui.QFileDialog.getExistingDirectory()
+        self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]
         if ID_btn == "selectFolder_btn":
-		    self.sourceFolder_lineEdit.setText(dir)
+		    self.sourceFolder_lineEdit.setText(self.dir)
         elif ID_btn ==  "selectFolder_btn2":
-            self.destiFolder_lineEditFolder_lineEdit.setText(dir)
+            self.destFolder_lineEdit.setText(self.dir)
 		
 		
     def convert(self):
-         pass
+         for index, file in enumerate(self.csvFiles):
+			fileName = file[0:file.find(".")]
+			xlsxFile = xlsxwriter.Workbook(fileName + ".xlsx")
+			worksheet = xlsxFile.add_worksheet()
+			source_full_path = os.path.join(self.dir , file)
+			with open(source_full_path, "rb") as f:
+				 data = csv.reader(f)
+				 for row,  dataInRow in enumerate(data):
+					for col, dataInCell in enumerate(dataInRow):
+						worksheet.write(row, col, dataInCell)
+         xlsxFile.close()
