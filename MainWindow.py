@@ -15,6 +15,9 @@ import xlsxwriter
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        #self.dir = os.path.dirname("C:\\")     #  Change the directory
+        self.dir = os.getcwd()
+        self.dirDestination = self.dir
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(472, 191)
         self.gridLayoutWidget = QtGui.QWidget(MainWindow)
@@ -58,9 +61,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "csv2xlsx Converter", None, QtGui.QApplication.UnicodeUTF8))
         self.source_label.setText(QtGui.QApplication.translate("MainWindow", "Source", None, QtGui.QApplication.UnicodeUTF8))
-        self.sourceFolder_lineEdit.setText(QtGui.QApplication.translate("MainWindow", "C:\\", None, QtGui.QApplication.UnicodeUTF8))
+        self.sourceFolder_lineEdit.setText(QtGui.QApplication.translate("MainWindow", self.dir, None, QtGui.QApplication.UnicodeUTF8))
         self.dist_label.setText(QtGui.QApplication.translate("MainWindow", "Destination", None, QtGui.QApplication.UnicodeUTF8))
-        self.destFolder_lineEdit.setText(QtGui.QApplication.translate("MainWindow", "C:\\", None, QtGui.QApplication.UnicodeUTF8))
+        self.destFolder_lineEdit.setText(QtGui.QApplication.translate("MainWindow", self.dirDestination, None, QtGui.QApplication.UnicodeUTF8))
         self.selectFolder_btn.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.convert_btn.setText(QtGui.QApplication.translate("MainWindow", "Convert", None, QtGui.QApplication.UnicodeUTF8))
         self.exit_btn.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
@@ -69,7 +72,6 @@ class Ui_MainWindow(object):
     def openFolder(self):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
         self.dir = QtGui.QFileDialog.getExistingDirectory()
-        self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]
         if ID_btn == "selectFolder_btn":
 		    self.sourceFolder_lineEdit.setText(self.dir)
         elif ID_btn ==  "selectFolder_btn_2": 
@@ -77,6 +79,7 @@ class Ui_MainWindow(object):
 		
 		
     def convert(self):
+        self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]   # read only the  files with csv extension
         for index, file in enumerate(self.csvFiles):
 			fileName = file[0:file.find(".")]
 			xlsxFile = xlsxwriter.Workbook(fileName + ".xlsx")
@@ -88,5 +91,4 @@ class Ui_MainWindow(object):
 					for col, dataInCell in enumerate(dataInRow):
 						worksheet.write(row, col, dataInCell)
         msgBox = QtGui.QMessageBox()  
-        msgBox.setText("The files have been converted.")
         msgBox.exec_()
