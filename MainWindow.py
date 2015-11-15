@@ -80,6 +80,8 @@ class Ui_MainWindow(object):
 		
     def convert(self):
         self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]   # read only the  files with csv extension
+        nFiles = len(self.csvFiles)
+        print self.csvFiles
         for index, file in enumerate(self.csvFiles):
 			fileName = file[0:file.find(".")]
 			xlsxFile = xlsxwriter.Workbook(fileName + ".xlsx")
@@ -91,4 +93,5 @@ class Ui_MainWindow(object):
 					for col, dataInCell in enumerate(dataInRow):
 						worksheet.write(row, col, dataInCell)
         msgBox = QtGui.QMessageBox()  
+        msgBox.setText(str(nFiles) + " csv files have been converted.")
         msgBox.exec_()
