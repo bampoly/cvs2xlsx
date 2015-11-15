@@ -71,20 +71,20 @@ class Ui_MainWindow(object):
 
     def openFolder(self):
         ID_btn = self.sender() .objectName()# this line is used to know which button is clicked	
-        self.dir = QtGui.QFileDialog.getExistingDirectory()
         if ID_btn == "selectFolder_btn":
-		    self.sourceFolder_lineEdit.setText(self.dir)
+			self.dir = QtGui.QFileDialog.getExistingDirectory()
+			self.sourceFolder_lineEdit.setText(self.dir)
         elif ID_btn ==  "selectFolder_btn_2": 
-            self.destFolder_lineEdit.setText(self.dir)
+			self.dirDestination = QtGui.QFileDialog.getExistingDirectory()
+			self.destFolder_lineEdit.setText(dirDestination)
 		
 		
     def convert(self):
         self.csvFiles = [file for file in  os.listdir(str(self.dir)) if file.endswith(".csv")]   # read only the  files with csv extension
         nFiles = len(self.csvFiles)
-        print self.csvFiles
         for index, file in enumerate(self.csvFiles):
 			fileName = file[0:file.find(".")]
-			xlsxFile = xlsxwriter.Workbook(fileName + ".xlsx")
+			xlsxFile = xlsxwriter.Workbook( os.path.join(self.dirDestination, fileName + ".xlsx"))
 			worksheet = xlsxFile.add_worksheet()
 			source_full_path = os.path.join(self.dir , file)
 			with open(source_full_path, "rb") as f:
